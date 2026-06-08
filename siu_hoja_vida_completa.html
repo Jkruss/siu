@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiU - Hoja de Vida Estudiante</title>
+<link rel="icon" type="image/png" href="Logo (1).png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;font-size:13px}
+body{background:#e8edf5;min-height:100vh}
+.siu-wrap{border:1px solid #bbb;background:#e8edf5;width:100%;margin:0}
+
+/* HEADER */
+.siu-header{background:#0d2b6b;padding:0;display:flex;justify-content:space-between;align-items:stretch;min-height:58px}
+.siu-header-left{display:flex;align-items:center;gap:10px;padding:8px 14px}
+.uni-logos{display:flex;gap:6px;align-items:center}
+.uni-box{background:#fff;border-radius:3px;padding:2px 4px;display:flex;flex-direction:column;align-items:center}
+.uni-box span{font-size:7px;color:#0d2b6b;line-height:1.1;font-weight:bold}
+.siu-center{flex:1;display:flex;justify-content:center;align-items:center}
+.siu-wordmark{color:#fff;font-size:28px;font-weight:900;font-style:italic;letter-spacing:3px;font-family:Arial Black,Arial,sans-serif}
+.siu-header-right{background:#1e3a7a;padding:6px 12px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-width:210px;border-left:1px solid #2a4a8a}
+.siu-header-right .user-name{color:#fff;font-size:11px;font-weight:bold;line-height:1.3}
+.siu-header-right .user-role{color:#aac4ff;font-size:10px}
+.siu-powered{color:#7a9ad0;font-size:9px;margin-top:4px}
+
+/* TOP TABS */
+.siu-tabs{background:#fff;display:flex;border-bottom:2px solid #0d2b6b}
+.siu-tab{padding:9px 18px;font-size:13px;cursor:pointer;border:none;background:transparent;color:#333;border-right:1px solid #ddd}
+.siu-tab.active{background:#0d2b6b;color:#fff;font-weight:bold}
+
+/* BODY LAYOUT */
+.siu-body{display:flex;min-height:600px}
+.siu-sidebar{background:#0d2b6b;width:185px;flex-shrink:0;padding:6px 0}
+.siu-sidebar a{display:flex;align-items:center;gap:7px;padding:9px 12px;color:#b0c4de;text-decoration:none;font-size:12px;border-bottom:1px solid #1a3a7a}
+.siu-sidebar a.active{background:#1a4fa0;color:#fff}
+
+/* MAIN SCROLL */
+.siu-main{flex:1;background:#e8edf5;padding:10px;overflow-y:auto;max-height:calc(100vh - 120px)}
+.siu-main::-webkit-scrollbar{width:8px}
+.siu-main::-webkit-scrollbar-track{background:#d0d8e8;border-radius:4px}
+.siu-main::-webkit-scrollbar-thumb{background:#0d2b6b;border-radius:4px}
+.siu-main::-webkit-scrollbar-thumb:hover{background:#1a4fa0}
+
+.inner-tab-bar{background:#fff;display:flex;border-bottom:1px solid #ccc;margin-bottom:10px}
+.inner-tab{padding:7px 14px;font-size:12px;cursor:pointer;border:none;background:#e8edf5;color:#333;border-right:1px solid #ccc;border-top:2px solid transparent}
+.inner-tab.active{background:#fff;border-top:2px solid #0d2b6b;font-weight:bold;color:#0d2b6b}
+
+/* STUDENT HEADER */
+.student-header{background:#fff;border:1px solid #d0d8e8;padding:10px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px}
+.student-right-info{text-align:right;font-size:11px;color:#333;line-height:1.7;flex:1}
+.student-right-info .prog{color:#0d2b6b;font-size:12px;font-weight:bold}
+.badge-green{background:#1abc9c;color:#fff;padding:1px 7px;border-radius:2px;font-size:10px;font-weight:bold}
+.badge-blue{background:#2980b9;color:#fff;padding:1px 7px;border-radius:2px;font-size:10px;font-weight:bold}
+.student-name-block{text-align:right;font-size:11px;color:#222;font-weight:bold;line-height:1.5;min-width:140px}
+.student-select select{width:220px;padding:5px 8px;border:1px solid #bbb;border-radius:3px;background:#fff;color:#555;font-size:12px}
+.action-icons{display:flex;gap:4px;justify-content:flex-end;margin-bottom:10px}
+.action-icon-btn{width:28px;height:28px;border:1px solid #0d2b6b;background:#0d2b6b;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:13px}
+
+/* TAB PILLS */
+.tabs-row{display:flex;gap:0;margin-bottom:8px;flex-wrap:wrap}
+.tab-pill{padding:6px 16px;font-size:12px;cursor:pointer;border:1px solid #0d2b6b;background:#fff;color:#0d2b6b;margin-right:-1px}
+.tab-pill.active{background:#0d2b6b;color:#fff;font-weight:bold}
+.tab-pill:first-child{border-radius:3px 0 0 3px}
+.tab-pill:last-child{border-radius:0 3px 3px 0;margin-right:0}
+.sub-tab-btn{padding:5px 12px;font-size:12px;border:1px solid #bbb;background:#e8edf5;border-radius:3px;cursor:pointer;margin-bottom:10px;color:#333}
+
+/* SECTION BLOCKS */
+.section-block{border:1px solid #0d2b6b;border-radius:2px;background:#fff;overflow:hidden;margin-bottom:12px}
+.section-header{background:#1a4fa0;color:#fff;padding:7px 14px;font-size:13px;font-weight:bold;display:flex;justify-content:space-between;align-items:center}
+.section-header span{font-size:16px;cursor:pointer;color:#aac4ff}
+
+/* FIELDS */
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e0e5ee}
+.field-cell{padding:7px 14px;border-bottom:1px solid #edf0f5;border-right:1px solid #edf0f5;display:flex;flex-direction:column;gap:2px}
+.field-cell-full{grid-column:1 / -1}
+.field-label{font-size:11px;color:#666;margin-bottom:1px}
+.field-input{border:1px solid #ccd4e0;border-radius:2px;padding:4px 8px;font-size:12px;background:#f9fafc;color:#333;width:100%}
+.field-input-pair{display:flex;gap:6px}
+.field-input-pair .field-input{flex:1}
+.field-textarea{border:1px solid #ccd4e0;border-radius:2px;padding:4px 8px;font-size:12px;background:#f9fafc;color:#333;width:100%;resize:vertical;min-height:60px;font-family:Arial,sans-serif}
+
+/* INFO ALERT */
+.info-alert{background:#eaf3fb;border:1px solid #aed6f1;border-radius:3px;padding:7px 12px;margin-bottom:10px;font-size:11px;color:#1a5276;display:flex;align-items:center;gap:6px}
+
+/* PROGRESS */
+.progress-bar{height:10px;background:#e0e5ee;border-radius:5px;overflow:hidden}
+.progress-fill{height:100%;border-radius:5px;background:#1a4fa0}
+.progress-label{font-size:10px;color:#666;text-align:right;margin-top:2px}
+.section-divider{height:1px;background:#d0d8e8;margin:8px 0}
+
+/* ══ ACADÉMICA STYLES ══ */
+.acad-panel{display:none}
+.acad-panel.active{display:block}
+
+.acad-sub-tabs{background:#fff;display:flex;border-bottom:1px solid #ccc;margin-bottom:10px}
+.acad-sub-tab{padding:7px 14px;font-size:12px;cursor:pointer;border:none;background:#e8edf5;color:#333;border-right:1px solid #ccc;border-radius:0}
+.acad-sub-tab.active{background:#fff;font-weight:bold;color:#0d2b6b;border-top:2px solid #0d2b6b}
+
+.acad-filter-bar{background:#fff;border:1px solid #d0d8e8;padding:8px 12px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.acad-filter-bar label{font-size:12px;color:#555;margin-right:4px}
+.acad-filter-bar select{padding:4px 8px;border:1px solid #bbb;border-radius:3px;font-size:12px;background:#fff;color:#333}
+
+.materias-perdidas-box{background:#fff;border:1px solid #d0d8e8;padding:12px 16px;margin-bottom:14px}
+.materias-perdidas-box .mp-header{background:#0d2b6b;color:#fff;font-weight:bold;padding:7px 12px;margin:-12px -16px 12px;font-size:13px}
+.mp-item{font-size:12px;color:#333;padding:3px 0}
+
+.periodo-block{background:#fff;border:1px solid #d0d8e8;margin-bottom:18px}
+.periodo-title-row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 14px 4px}
+.periodo-title{font-size:13px;font-weight:bold;color:#222}
+.periodo-btns{display:flex;gap:6px;flex-shrink:0}
+.btn-horario{background:#c0392b;color:#fff;border:none;padding:5px 12px;border-radius:3px;font-size:11px;cursor:pointer;font-weight:bold}
+.btn-calificaciones{background:#c0392b;color:#fff;border:none;padding:5px 12px;border-radius:3px;font-size:11px;cursor:pointer;font-weight:bold}
+.periodo-meta{text-align:right;font-size:11px;color:#555;line-height:1.8;padding:0 14px 8px}
+.periodo-meta strong{color:#222}
+
+/* ACADEMIC TABLE */
+.acad-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.acad-table th{background:#0d2b6b;color:#fff;padding:7px 8px;text-align:left;font-weight:bold;border-right:1px solid #1a3a7a;white-space:nowrap}
+.acad-table td{padding:6px 8px;border-bottom:1px solid #edf0f5;border-right:1px solid #edf0f5;color:#333;white-space:nowrap}
+.acad-table tr:nth-child(even) td{background:#f4f7fb}
+.acad-table tr:hover td{background:#e8f0fa}
+.cal-red{color:#c0392b;font-weight:bold}
+.obs-row td{padding:6px 10px;font-size:11px;color:#666;border-top:1px solid #eee}
+.obs-input{width:100%;border:1px solid #d0d8e8;border-radius:2px;padding:3px 8px;font-size:11px;color:#555;background:#fafbfc}
+
+/* CONTENEDOR PANELES */
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* MODAL CALIFICACIONES PARCIALES */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.45);z-index:1000;justify-content:center;align-items:flex-start;padding-top:40px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border:1px solid #0d2b6b;border-radius:3px;width:95%;max-width:1050px;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.25)}
+.modal-box::-webkit-scrollbar{width:7px}
+.modal-box::-webkit-scrollbar-track{background:#e0e5ee}
+.modal-box::-webkit-scrollbar-thumb{background:#0d2b6b;border-radius:4px}
+.modal-header{background:#0d2b6b;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.modal-header-title{font-size:13px;font-weight:bold}
+.modal-header-right{font-size:11px;color:#aac4ff}
+.modal-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0 4px}
+.modal-close:hover{color:#ffaaaa}
+.modal-body{padding:14px}
+
+/* TABLA CORTES */
+.cortes-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.cortes-table th{background:#0d2b6b;color:#fff;padding:7px 8px;text-align:center;border-right:1px solid #1a3a7a;font-weight:bold}
+.cortes-table th.left{text-align:left}
+.cortes-table th.group-header{background:#1a4fa0;font-size:12px;letter-spacing:0.3px}
+.cortes-table td{padding:6px 8px;border-bottom:1px solid #edf0f5;border-right:1px solid #edf0f5;color:#333;text-align:center}
+.cortes-table td.left{text-align:left}
+.cortes-table tr:nth-child(even) td{background:#f4f7fb}
+.cortes-table tr:hover td{background:#e8f0fa}
+.cortes-table .cal-red{color:#c0392b;font-weight:bold}
+.corte-pct{font-size:10px;color:#aac4ff;font-weight:normal;display:block}
+</style>
+</head>
+<body>
+<div class="siu-wrap">
+
+  <!-- HEADER -->
+  <div class="siu-header">
+    <div class="siu-header-left">
+      <div class="uni-logos">
+        <img src="logo.png" alt="Logo Unicomfacauca" style="height: 46px; width: auto; display: block; object-fit: contain;">
+      </div>
+    </div>
+    <div class="siu-center">
+      <div>
+        <div class="siu-wordmark">SiU</div>
+        <div style="display:flex;flex-direction:column;align-items:center;margin-top:-4px">
+          <div style="width:52px;height:2px;background:#fff;border-radius:1px"></div>
+          <div style="width:40px;height:2px;background:#fff;border-radius:1px;margin-top:3px"></div>
+          <div style="width:28px;height:2px;background:#fff;border-radius:1px;margin-top:3px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="siu-header-right">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:20px;height:20px;border-radius:50%;background:#3a5a9a;display:flex;align-items:center;justify-content:center">
+          <span style="color:#fff;font-size:11px">&#128100;</span>
+        </div>
+        <div>
+          <div class="user-name">POTOSI CALDERON JUAN CAMI...</div>
+          <div class="user-role">Estudiante &nbsp;|&nbsp; IS - 7° Semestre</div>
+        </div>
+      </div>
+      <div class="siu-powered">&#9889; Powered by DATASAE360.com | v5.5.0</div>
+    </div>
+  </div>
+
+  <!-- TOP TABS -->
+  <div class="siu-tabs">
+    <button class="siu-tab active" onclick="switchMainTab('hoja')">Hoja de vida</button>
+    <button class="siu-tab" onclick="switchMainTab('espacio')">Espacio virtual</button>
+    <button class="siu-tab" onclick="switchMainTab('evaluacion')">Evaluación docente</button>
+  </div>
+
+  <!-- BODY -->
+  <div class="siu-body">
+    <div class="siu-sidebar">
+      <a href="#" class="active">&#128196; Hoja de vida Estudiante</a>
+      <a href="#">&#128994; Semáforo académico</a>
+      <a href="#">&#128203; Historial académico</a>
+      <a href="#">&#128197; Horario de clases</a>
+      <a href="#">&#128176; Estado financiero</a>
+      <a href="#">&#127891; Opciones de grado</a>
+      <a href="#">&#128221; Solicitudes</a>
+      <a href="#">&#128274; Contraseña</a>
+    </div>
+
+    <div class="siu-main">
+
+      <div class="inner-tab-bar">
+        <button class="inner-tab active">Hoja de vida Estudiante &nbsp; &#x2715;</button>
+      </div>
+
+      <!-- Student card (always visible) -->
+      <div class="student-header">
+        <div class="student-select">
+          <select><option>POTOSI CALDERON JUAN CAMILO</option></select>
+          <div style="font-size:10px;color:#888;margin-top:4px">Período activo: 2026-1</div>
+        </div>
+        <div class="student-right-info">
+          <div class="prog">IS - INGENIERÍA DE SISTEMAS</div>
+          Sede: POPAYÁN &nbsp;|&nbsp; Jornada: Diurna<br>
+          Estado: <span class="badge-green">MATRICULADO</span> &nbsp;<br>
+          Cohorte / Grupo: 1 &nbsp;&nbsp; Promedio acumulado: <strong>3.28</strong><br>
+          Semestre actual: <strong>7</strong> &nbsp;|&nbsp; Créditos cursados: <strong>112</strong><br>
+          Opción de Grado: Sin opción registrada
+        </div>
+        <div class="student-name-block">
+          JUAN CAMILO<br>POTOSI CALDERON<br>
+          <span style="font-weight:normal;font-size:10px;color:#555">TI 1059237183<br>Cód. IS1059237183<br>Plan: 20161</span>
+        </div>
+        <div style="width:52px;height:62px;border:1px solid #bbb;border-radius:3px;background:#c8d0d8;flex-shrink:0;overflow:hidden">
+          <svg width="52" height="62" viewBox="0 0 52 62">
+            <rect width="52" height="62" fill="#c8d0d8" rx="2"/>
+            <circle cx="26" cy="20" r="11" fill="#888"/>
+            <ellipse cx="26" cy="52" rx="18" ry="12" fill="#888"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-icons">
+        <div class="action-icon-btn">&#9776;</div>
+        <div class="action-icon-btn">&#9646;</div>
+        <div class="action-icon-btn">&#128247;</div>
+        <div class="action-icon-btn" style="background:#16a085;border-color:#16a085">&#128438;</div>
+        <div class="action-icon-btn" style="background:#c0392b;border-color:#c0392b">&#128196;</div>
+        <div class="action-icon-btn" style="background:#8e44ad;border-color:#8e44ad">&#9993;</div>
+      </div>
+
+      <!-- MAIN SECTION TABS -->
+      <div class="tabs-row" id="mainTabPills">
+        <button class="tab-pill active" onclick="switchSectionTab('personal', this)">Información personal</button>
+        <button class="tab-pill" onclick="switchSectionTab('academica', this)">Académica</button>
+        <button class="tab-pill" onclick="switchSectionTab('financiero', this)">Financiero</button>
+      </div>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- TAB: INFORMACIÓN PERSONAL              -->
+      <!-- ═══════════════════════════════════════ -->
+      <div id="tab-personal" class="tab-content active">
+        <button class="sub-tab-btn">&#128196; Información básica</button>
+        <div class="info-alert">&#8505;&nbsp; Los campos marcados con <strong>*</strong> son obligatorios. Información protegida por Ley 1581 de 2012 (Habeas Data).</div>
+
+        <!-- 1. INFO PERSONAL -->
+        <div class="section-block">
+          <div class="section-header">&#128100; Información personal <span>&#8722;</span></div>
+          <div class="fields-grid">
+            <div class="field-cell"><span class="field-label">Primer nombre: *</span><input class="field-input" value="JUAN" readonly></div>
+            <div class="field-cell"><span class="field-label">Primer apellido: *</span><input class="field-input" value="POTOSI" readonly></div>
+            <div class="field-cell"><span class="field-label">Segundo nombre:</span><input class="field-input" value="CAMILO" readonly></div>
+            <div class="field-cell"><span class="field-label">Segundo apellido:</span><input class="field-input" value="CALDERON" readonly></div>
+            <div class="field-cell"><span class="field-label">Tipo / N° identificación: *</span>
+              <div class="field-input-pair"><input class="field-input" value="TARJETA DE IDENTIDAD" readonly style="flex:1.4"><input class="field-input" value="1059237183" readonly></div>
+            </div>
+            <div class="field-cell"><span class="field-label">País de expedición:</span><input class="field-input" value="COLOMBIA" readonly></div>
+            <div class="field-cell"><span class="field-label">Lugar expedición documento:</span><input class="field-input" value="POPAYÁN" readonly></div>
+            <div class="field-cell"><span class="field-label">Fecha expedición documento:</span><input class="field-input" value="2019-08-15" readonly></div>
+            <div class="field-cell"><span class="field-label">Género: *</span><input class="field-input" value="MASCULINO" readonly></div>
+            <div class="field-cell"><span class="field-label">Estado civil:</span><input class="field-input" value="SOLTERO" readonly></div>
+            <div class="field-cell"><span class="field-label">Fecha de nacimiento: *</span><input class="field-input" value="2006-03-30" readonly></div>
+            <div class="field-cell"><span class="field-label">Edad:</span><input class="field-input" value="20 años" readonly></div>
+            <div class="field-cell"><span class="field-label">País de nacimiento:</span><input class="field-input" value="COLOMBIA" readonly></div>
+            <div class="field-cell"><span class="field-label">Municipio de nacimiento:</span><input class="field-input" value="POPAYÁN - CAUCA" readonly></div>
+            <div class="field-cell"><span class="field-label">Nacionalidad:</span><input class="field-input" value="COLOMBIANA" readonly></div>
+            <div class="field-cell"><span class="field-label">Grupo étnico:</span><input class="field-input" value="NINGUNO" readonly></div>
+            <div class="field-cell"><span class="field-label">Grupo sanguíneo:</span><input class="field-input" value="O+" readonly></div>
+            <div class="field-cell"><span class="field-label">Condición de discapacidad:</span><input class="field-input" value="NINGUNA" readonly></div>
+            <div class="field-cell"><span class="field-label">Estrato socioeconómico:</span><input class="field-input" value="2" readonly></div>
+            <div class="field-cell"><span class="field-label">Zona de residencia:</span><input class="field-input" value="URBANA" readonly></div>
+          </div>
+        </div>
+
+        <!-- 2. CONTACTO -->
+        <div class="section-block">
+          <div class="section-header" style="background:#0e6655">&#128222; Información de contacto y ubicación <span>&#8722;</span></div>
+          <div class="fields-grid">
+            <div class="field-cell"><span class="field-label">Celular principal: *</span><input class="field-input" value="3127182004" readonly></div>
+            <div class="field-cell"><span class="field-label">Celular alternativo:</span><input class="field-input" value="" readonly placeholder="No registrado"></div>
+            <div class="field-cell"><span class="field-label">Teléfono fijo:</span><input class="field-input" value="" readonly placeholder="No registrado"></div>
+            <div class="field-cell"><span class="field-label">Teléfono de emergencia:</span><input class="field-input" value="3127182005" readonly></div>
+            <div class="field-cell"><span class="field-label">Correo electrónico personal: *</span><input class="field-input" value="jkmi2006@gmail.com" readonly></div>
+            <div class="field-cell"><span class="field-label">Correo electrónico institucional:</span><input class="field-input" value="juancalderon@unicomfacauca.edu.co" readonly></div>
+            <div class="field-cell"><span class="field-label">Dirección de residencia:</span><input class="field-input" value="CRA 22 #9A-27" readonly></div>
+            <div class="field-cell"><span class="field-label">Barrio:</span><input class="field-input" value="RETIRO" readonly></div>
+            <div class="field-cell"><span class="field-label">Municipio de residencia:</span><input class="field-input" value="POPAYÁN" readonly></div>
+            <div class="field-cell"><span class="field-label">Departamento:</span><input class="field-input" value="CAUCA" readonly></div>
+            <div class="field-cell"><span class="field-label">País de residencia:</span><input class="field-input" value="COLOMBIA" readonly></div>
+            <div class="field-cell"><span class="field-label">Localidad / Comuna:</span><input class="field-input" value="COMUNA 2 - ORIENTE" readonly></div>
+          </div>
+        </div>
+
+        <!-- 3. CONTACTO EMERGENCIA -->
+        <div class="section-block">
+          <div class="section-header" style="background:#c0392b">&#128680; Contacto de emergencia y acudiente <span>&#8722;</span></div>
+          <div class="fields-grid">
+            <div class="field-cell"><span class="field-label">Nombre completo del acudiente:</span><input class="field-input" value="MARIA SHIRLEY CALDERON ORTIZ" readonly></div>
+            <div class="field-cell"><span class="field-label">Parentesco:</span><input class="field-input" value="MADRE" readonly></div>
+            <div class="field-cell"><span class="field-label">Identificación del acudiente:</span><input class="field-input" value="CC 25290644" readonly></div>
+            <div class="field-cell"><span class="field-label">Teléfono del acudiente:</span><input class="field-input" value="3127171450" readonly></div>
+            <div class="field-cell"><span class="field-label">EPS / Aseguradora:</span><input class="field-input" value="PONAL" readonly></div>
+            <div class="field-cell"><span class="field-label">N° afiliado / Tipo:</span>
+              <div class="field-input-pair"><input class="field-input" value="1059237183" readonly><input class="field-input" value="BENEFICIARIO" readonly></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. EDUCACIÓN PREVIA -->
+        <div class="section-block">
+          <div class="section-header" style="background:#16a085">&#127979; Educación previa y bachillerato <span>&#8722;</span></div>
+          <div class="fields-grid">
+            <div class="field-cell"><span class="field-label">Institución educativa de bachillerato:</span><input class="field-input" value="COLEGIO NUESTRA SEÑORA DE FATIMA" readonly></div>
+            <div class="field-cell"><span class="field-label">Municipio del colegio:</span><input class="field-input" value="POPAYÁN - CAUCA" readonly></div>
+            <div class="field-cell"><span class="field-label">Tipo de institución:</span><input class="field-input" value="OFICIAL" readonly></div>
+            <div class="field-cell"><span class="field-label">Año de graduación:</span><input class="field-input" value="2022" readonly></div>
+            <div class="field-cell"><span class="field-label">Puntaje ICFES / Saber 11:</span><input class="field-input" value="287" readonly></div>
+            <div class="field-cell"><span class="field-label">Año presentación ICFES:</span><input class="field-input" value="2022-2" readonly></div>
+            <div class="field-cell"><span class="field-label">Forma de ingreso:</span><input class="field-input" value="EXAMEN DE ADMISIÓN" readonly></div>
+            <div class="field-cell"><span class="field-label">Período de primer ingreso:</span><input class="field-input" value="2023-1" readonly></div>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:10px;font-size:10px;color:#888;margin-top:8px">
+          Sistema de Información Universitario (SiU) &nbsp;|&nbsp; Unicomfacauca &nbsp;|&nbsp; Consulta generada: 2026-06-07 &nbsp;|&nbsp; v5.5.0
+        </div>
+      </div><!-- /tab-personal -->
+
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- TAB: ACADÉMICA                         -->
+      <!-- ═══════════════════════════════════════ -->
+      <div id="tab-academica" class="tab-content">
+
+        <!-- Sub-tabs: Calificaciones / Plan de estudio -->
+        <div class="acad-sub-tabs">
+          <button class="acad-sub-tab active">Calificaciones</button>
+          <button class="acad-sub-tab">Plan de estudio</button>
+        </div>
+
+        <!-- Filtros -->
+        <div class="acad-filter-bar">
+          <div>
+            <label>Programa:</label>
+            <select><option>Todos</option><option>IS - Ingeniería de Sistemas</option></select>
+          </div>
+          <div>
+            <label>Período:</label>
+            <select>
+              <option>Todos</option>
+              <option>FEBRERO - JUNIO DE 2026</option>
+              <option>ENERO - JUNIO DE 2025</option>
+              <option>JULIO - DICIEMBRE DE 2024</option>
+              <option>ENERO - JUNIO DE 2024</option>
+              <option>ENERO - JUNIO DE 2023</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px">
+            <input type="checkbox" id="ocultar">
+            <label for="ocultar" style="font-size:12px">Ocultar<br>Detalle:</label>
+          </div>
+        </div>
+
+        <!-- Intentos Materias Perdidas -->
+        <div class="materias-perdidas-box">
+          <div class="mp-header">Intentos Materias Perdidas</div>
+          <div class="mp-item">¿Tiene materias perdidas con 3 intentos?: <strong>No</strong></div>
+          <div class="mp-item">¿Tiene materias perdidas con 4 intentos?: <strong>No</strong></div>
+          <div class="mp-item">¿Tiene materias perdidas con 5 intentos?: <strong>No</strong></div>
+        </div>
+
+        <!-- ══ PERÍODO 1: FEBRERO - JUNIO 2026 ══ -->
+        <div class="periodo-block">
+          <div class="periodo-title-row">
+            <div class="periodo-title">Periodo: FEBRERO - JUNIO DE 2026</div>
+            <div class="periodo-btns">
+              <button class="btn-horario">Horario estudiante</button>
+              <button class="btn-calificaciones" onclick="openParciales()">Calificaciones parciales</button>
+            </div>
+          </div>
+          <div class="periodo-meta">
+            Promedio: <strong>3.7</strong> &nbsp;&nbsp;
+            Fecha de Matrícula: <strong>2026-02-06</strong><br>
+            Promedio Acumulado: <strong>3.28</strong> &nbsp;&nbsp;
+            Cantidad créditos: <strong>18</strong><br>
+            ¿Entregó certificado EPS?: <strong>Sí</strong>
+          </div>
+          <div style="overflow-x:auto;padding:0 14px 0">
+            <table class="acad-table">
+              <thead>
+                <tr>
+                  <th>Código</th><th>Asignatura</th><th>Fecha de Matrícula</th><th>Fecha de cancelación</th>
+                  <th>Tipo</th><th>Plan</th><th>Semestre</th><th>Créditos</th><th>Grupo</th>
+                  <th>Calificación</th><th>Habilitación</th><th>Definitiva Calculada</th><th>Inas.</th><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>APL-WEB-00837</td><td>APLICACIONES WEB</td><td>2026-02-06</td><td></td><td>NOCA</td><td>20161</td><td>7</td><td>4</td><td>5</td><td>4</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>CAL-SOF-00307</td><td>CALIDAD DE SOFTWARE</td><td>2026-02-06</td><td></td><td>CUR</td><td>20161</td><td>7</td><td>3</td><td>6</td><td>3.9</td><td></td><td></td><td>3</td><td></td></tr>
+                <tr><td>ELE-PRO-II-00305</td><td>ELECTIVA DE PROFUNDIZACIÓN II (IS)</td><td>2026-02-06</td><td></td><td>CUR</td><td>20161</td><td>7</td><td>3</td><td>5</td><td>3.6</td><td></td><td></td><td>4</td><td></td></tr>
+                <tr><td>ELE-GEN-II-00310</td><td>ELECTIVA GENERAL II</td><td>2026-02-06</td><td></td><td>CUR</td><td>20161</td><td>9</td><td>2</td><td>4</td><td>4.2</td><td></td><td></td><td>7</td><td></td></tr>
+                <tr><td>BAS-DAT-00246</td><td>Base de Datos</td><td>2026-02-06</td><td></td><td>CUR</td><td>20161</td><td>3</td><td>4</td><td>6</td><td>3.2</td><td></td><td></td><td>6</td><td></td></tr>
+                <tr><td>ING-III-00749</td><td>INGLÉS III</td><td>2026-02-06</td><td></td><td>NOCA</td><td>20161</td><td>3</td><td>2</td><td>4</td><td>3.7</td><td></td><td></td><td>6</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:6px 14px 10px">
+            <span style="font-size:11px;color:#666">Observaciones:</span>
+            <input class="obs-input" type="text" readonly>
+          </div>
+        </div>
+
+        <!-- ══ PERÍODO 2: ENERO - JUNIO 2025 ══ -->
+        <div class="periodo-block">
+          <div class="periodo-title-row">
+            <div class="periodo-title">Periodo: ENERO - JUNIO DE 2025</div>
+            <div class="periodo-btns">
+              <button class="btn-horario">Horario estudiante</button>
+              <button class="btn-calificaciones">Calificaciones parciales</button>
+            </div>
+          </div>
+          <div class="periodo-meta">
+            Promedio: <strong>3.12</strong> &nbsp;&nbsp;
+            Fecha de Matrícula: <strong>2025-02-20</strong><br>
+            Promedio Acumulado: <strong>3.19</strong> &nbsp;&nbsp;
+            Cantidad créditos: <strong>17</strong><br>
+            ¿Entregó certificado EPS?: <strong>--</strong>
+          </div>
+          <div style="overflow-x:auto;padding:0 14px 0">
+            <table class="acad-table">
+              <thead>
+                <tr>
+                  <th>Código</th><th>Asignatura</th><th>Fecha de Matrícula</th><th>Fecha de cancelación</th>
+                  <th>Tipo</th><th>Plan</th><th>Semestre</th><th>Créditos</th><th>Grupo</th>
+                  <th>Calificación</th><th>Habilitación</th><th>Definitiva Calculada</th><th>Inas.</th><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>CAL-INT-00239</td><td>CÁLCULO INTEGRAL</td><td>2025-02-20</td><td></td><td>CUR</td><td>20161</td><td>2</td><td>4</td><td>3</td><td>3</td><td></td><td></td><td>20</td><td></td></tr>
+                <tr><td>EST-DAT-00246</td><td>Estructura de Datos</td><td>2025-02-20</td><td></td><td>CUR</td><td>20161</td><td>3</td><td>4</td><td>5</td><td>3</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>FIS-II-00245</td><td>FÍSICA II</td><td>2025-02-20</td><td></td><td>CUR</td><td>20161</td><td>3</td><td>4</td><td>7</td><td>3.3</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>ING-II-00749</td><td>INGLÉS II</td><td>2025-02-20</td><td></td><td>CUR</td><td>20161</td><td>3</td><td>2</td><td>8</td><td>3</td><td></td><td></td><td>6</td><td></td></tr>
+                <tr><td>INT-LOS-SIS-00252</td><td>INTRODUCCIÓN A LOS SISTEMAS DE INFORMACIÓN</td><td>2025-02-20</td><td></td><td>CUR</td><td>20161</td><td>3</td><td>3</td><td>5</td><td>3.4</td><td></td><td></td><td>3</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:6px 14px 10px">
+            <span style="font-size:11px;color:#666">Observaciones:</span>
+            <input class="obs-input" type="text" readonly>
+          </div>
+        </div>
+
+        <!-- ══ PERÍODO 3: JULIO - DICIEMBRE 2024 ══ -->
+        <div class="periodo-block">
+          <div class="periodo-title-row">
+            <div class="periodo-title">Periodo: JULIO - DICIEMBRE DE 2024</div>
+            <div class="periodo-btns">
+              <button class="btn-horario">Horario estudiante</button>
+              <button class="btn-calificaciones">Calificaciones parciales</button>
+            </div>
+          </div>
+          <div class="periodo-meta">
+            Promedio: <strong>3.02</strong> &nbsp;&nbsp;
+            Fecha de Matrícula: <strong>2024-08-06</strong><br>
+            Promedio Acumulado: <strong>3.47</strong> &nbsp;&nbsp;
+            Cantidad créditos: <strong>17</strong><br>
+            ¿Entregó certificado EPS?: <strong>--</strong>
+          </div>
+          <div style="overflow-x:auto;padding:0 14px 0">
+            <table class="acad-table">
+              <thead>
+                <tr>
+                  <th>Código</th><th>Asignatura</th><th>Fecha de Matrícula</th><th>Fecha de cancelación</th>
+                  <th>Tipo</th><th>Plan</th><th>Semestre</th><th>Créditos</th><th>Grupo</th>
+                  <th>Calificación</th><th>Habilitación</th><th>Definitiva Calculada</th><th>Inas.</th><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>CAL-DIF-00239</td><td>CÁLCULO DIFERENCIAL</td><td>2024-08-06</td><td></td><td>CUR</td><td>20161</td><td>2</td><td>4</td><td>24</td><td>3.1</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>FIS-I-00241</td><td>FÍSICA I</td><td>2024-08-06</td><td></td><td>CUR</td><td>20161</td><td>2</td><td>4</td><td>25</td><td>3.2</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>ING-I-00743</td><td>INGLÉS I</td><td>2024-08-06</td><td></td><td>CUR</td><td>20161</td><td>2</td><td>2</td><td>10</td><td>3.2</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>PRO-ORI-OBJ-00242</td><td>PROGRAMACIÓN ORIENTADA A OBJETOS</td><td>2024-08-06</td><td></td><td>CUR</td><td>20161</td><td>2</td><td>4</td><td>62</td><td>3.7</td><td></td><td></td><td>6</td><td></td></tr>
+                <tr><td>ALG-LIN-00240</td><td>ÁLGEBRA LINEAL</td><td>2024-08-06</td><td></td><td>CUR</td><td>20161</td><td>2</td><td>3</td><td>26</td><td>3.0</td><td></td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:6px 14px 10px">
+            <span style="font-size:11px;color:#666">Observaciones:</span>
+            <input class="obs-input" type="text" readonly>
+          </div>
+        </div>
+
+        <!-- ══ PERÍODO 4: ENERO - JUNIO 2024 ══ -->
+        <div class="periodo-block">
+          <div class="periodo-title-row">
+            <div class="periodo-title">Periodo: ENERO - JUNIO DE 2024</div>
+            <div class="periodo-btns">
+              <button class="btn-horario">Horario estudiante</button>
+              <button class="btn-calificaciones">Calificaciones parciales</button>
+            </div>
+          </div>
+          <div class="periodo-meta">
+            Promedio: <strong>3.85</strong> &nbsp;&nbsp;
+            Fecha de Matrícula: <strong>2024-01-01</strong><br>
+            Promedio Acumulado: <strong>3.85</strong> &nbsp;&nbsp;
+            Cantidad créditos: <strong>18</strong><br>
+            ¿Entregó certificado EPS?: <strong>--</strong>
+          </div>
+          <div style="overflow-x:auto;padding:0 14px 0">
+            <table class="acad-table">
+              <thead>
+                <tr>
+                  <th>Código</th><th>Asignatura</th><th>Fecha de Matrícula</th><th>Fecha de cancelación</th>
+                  <th>Tipo</th><th>Plan</th><th>Semestre</th><th>Créditos</th><th>Grupo</th>
+                  <th>Calificación</th><th>Habilitación</th><th>Definitiva Calculada</th><th>Inas.</th><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>CAT-UNI-I-00740</td><td>CATEDRA UNICOMFACAUCA I</td><td>2024-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>2</td><td>1</td><td>4.0</td><td></td><td></td><td>1</td><td></td></tr>               
+                <tr><td>FUN-PRO-00236</td><td>FUNDAMENTOS DE PROGRAMACIÓN</td><td>2024-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>4</td><td>1</td><td>3.7</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>INT-00235</td><td>INTRODUCCIÓN A LA INGENIERÍA</td><td>2024-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>2</td><td>1</td><td>4.9</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>LEC-00742</td><td>LECTOESCRITURA</td><td>2024-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>2</td><td>1</td><td>3.8</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>LOG-MAT-00234</td><td>LÓGICA MATEMÁTICA</td><td>2024-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>4</td><td>1</td><td class="cal-red">2.6</td><td>3.4</td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:6px 14px 10px">
+            <span style="font-size:11px;color:#666">Observaciones:</span>
+            <input class="obs-input" type="text" readonly>
+          </div>
+        </div>
+
+        <!-- ══ PERÍODO 5: ENERO - JUNIO 2023 ══ -->
+        <div class="periodo-block">
+          <div class="periodo-title-row">
+            <div class="periodo-title">Periodo: ENERO - JUNIO DE 2023</div>
+            <div class="periodo-btns">
+              <button class="btn-horario">Horario estudiante</button>
+              <button class="btn-calificaciones">Calificaciones parciales</button>
+            </div>
+          </div>
+          <div class="periodo-meta">
+            Promedio: <strong>1.41</strong> &nbsp;&nbsp;
+            Fecha de Matrícula: <strong>2023-01-01</strong><br>
+            Promedio Acumulado: <strong>1.41</strong> &nbsp;&nbsp;
+            Cantidad créditos: <strong>18</strong><br>
+            ¿Entregó certificado EPS?: <strong>--</strong>
+          </div>
+          <div style="overflow-x:auto;padding:0 14px 0">
+            <table class="acad-table">
+              <thead>
+                <tr>
+                  <th>Código</th><th>Asignatura</th><th>Fecha de Matrícula</th><th>Fecha de cancelación</th>
+                  <th>Tipo</th><th>Plan</th><th>Semestre</th><th>Créditos</th><th>Grupo</th>
+                  <th>Calificación</th><th>Habilitación</th><th>Definitiva Calculada</th><th>Inas.</th><th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>CAT-UNI-I-00740</td><td>CATEDRA UNICOMFACAUCA I</td><td>2023-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>2</td><td>1</td><td class="cal-red">0.0</td><td></td><td></td><td>14</td><td></td></tr>
+                <tr><td>CAL-DIF-00233</td><td>CÁLCULO DIFERENCIAL</td><td>2023-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>4</td><td>1</td><td class="cal-red">1.1</td><td></td><td></td><td>6</td><td></td></tr>
+                <tr><td>FUN-PRO-00236</td><td>FUNDAMENTOS DE PROGRAMACIÓN</td><td>2023-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>4</td><td>1</td><td class="cal-red">1.7</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>INT-00235</td><td>INTRODUCCIÓN A LA INGENIERÍA</td><td>2023-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>2</td><td>1</td><td class="cal-red">1.8</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>LEC-00742</td><td>LECTOESCRITURA</td><td>2023-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>2</td><td>1</td><td class="cal-red">1.4</td><td></td><td></td><td>10</td><td></td></tr>
+                <tr><td>LOG-MAT-00234</td><td>LÓGICA MATEMÁTICA</td><td>2023-01-01</td><td></td><td>CUR</td><td>20161</td><td>1</td><td>4</td><td>1</td><td class="cal-red">2.5</td><td></td><td></td><td>8</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:6px 14px 10px;display:flex;justify-content:flex-end">
+            <span style="font-size:11px;color:#666;margin-right:auto">Observaciones:</span>
+            <button style="background:#2c3e50;color:#fff;border:none;padding:5px 14px;border-radius:4px;font-size:11px;cursor:pointer">&#10067; Ver guía</button>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:10px;font-size:10px;color:#888;margin-top:4px">
+          Sistema de Información Universitario (SiU) &nbsp;|&nbsp; Unicomfacauca &nbsp;|&nbsp; Consulta generada: 2026-06-07 &nbsp;|&nbsp; v5.5.0
+        </div>
+      </div><!-- /tab-academica -->
+
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- TAB: FINANCIERO                        -->
+      <!-- ═══════════════════════════════════════ -->
+      <div id="tab-financiero" class="tab-content">
+        <div class="info-alert">&#128176;&nbsp; Información financiera del estudiante para el período académico vigente.</div>
+        <div class="section-block">
+          <div class="section-header" style="background:#2c3e50">&#128176; Estado de cuenta - Período 2026-1 <span>&#8722;</span></div>
+          <div class="fields-grid">
+            <div class="field-cell"><span class="field-label">Valor matrícula:</span><input class="field-input" value="$ 1.850.000" readonly></div>
+            <div class="field-cell"><span class="field-label">Descuentos aplicados:</span><input class="field-input" value="$ 0" readonly></div>
+            <div class="field-cell"><span class="field-label">Total pagado:</span><input class="field-input" value="$ 1.850.000" readonly></div>
+            <div class="field-cell"><span class="field-label">Saldo pendiente:</span><input class="field-input" value="$ 0" readonly></div>
+            <div class="field-cell"><span class="field-label">Estado financiero:</span><input class="field-input" value="AL DÍA" readonly></div>
+            <div class="field-cell"><span class="field-label">Fecha último pago:</span><input class="field-input" value="2026-02-05" readonly></div>
+          </div>
+        </div>
+        <div style="text-align:center;padding:10px;font-size:10px;color:#888">
+          Sistema de Información Universitario (SiU) &nbsp;|&nbsp; Unicomfacauca &nbsp;|&nbsp; v5.5.0
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- TAB: BIENESTAR                         -->
+      <!-- ═══════════════════════════════════════ -->
+      <div id="tab-bienestar" class="tab-content">
+        <div class="info-alert">&#127919;&nbsp; Registro de participación en programas de bienestar universitario.</div>
+        <div class="section-block">
+          <div class="section-header" style="background:#6c3483">&#127968; Bienestar universitario <span>&#8722;</span></div>
+          <div class="fields-grid">
+            <div class="field-cell"><span class="field-label">Programas inscritos:</span><input class="field-input" value="Orientación vocacional (2021-1)" readonly></div>
+            <div class="field-cell"><span class="field-label">Tutorías solicitadas:</span><input class="field-input" value="2" readonly></div>
+            <div class="field-cell"><span class="field-label">Estado psicosocial:</span><input class="field-input" value="SIN NOVEDAD" readonly></div>
+            <div class="field-cell"><span class="field-label">Observaciones:</span><input class="field-input" value="Apto para continuar estudios" readonly></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- TAB: DOCUMENTOS                        -->
+      <!-- ═══════════════════════════════════════ -->
+      <div id="tab-documentos" class="tab-content">
+        <div class="info-alert">&#128196;&nbsp; Documentos requeridos y cargados en el sistema.</div>
+        <div class="section-block">
+          <div class="section-header" style="background:#1a6b3a">&#128196; Documentos del estudiante <span>&#8722;</span></div>
+          <div style="overflow-x:auto;padding:8px">
+            <table class="acad-table">
+              <thead><tr><th>Documento</th><th>Estado</th><th>Fecha carga</th><th>Observación</th></tr></thead>
+              <tbody>
+                <tr><td>Tarjeta de identidad</td><td style="color:green;font-weight:bold">✔ Cargado</td><td>2024-01-03</td><td>Vigente</td></tr>
+                <tr><td>Foto 3x4</td><td style="color:green;font-weight:bold">✔ Cargado</td><td>2024-01-03</td><td>Vigente</td></tr>
+                <tr><td>Diploma bachillerato</td><td style="color:green;font-weight:bold">✔ Cargado</td><td>2024-01-05</td><td>Verificado</td></tr>
+                <tr><td>Acta de grado</td><td style="color:green;font-weight:bold">✔ Cargado</td><td>2024-01-05</td><td>Verificado</td></tr>
+                <tr><td>Resultado ICFES</td><td style="color:green;font-weight:bold">✔ Cargado</td><td>2024-01-05</td><td>Puntaje: 287</td></tr>
+                <tr><td>Certificado EPS 2026-1</td><td style="color:green;font-weight:bold">✔ Cargado</td><td>2026-02-04</td><td>Vigente</td></tr>
+                <tr><td>Certificado EPS 2025-1</td><td style="color:#e67e22;font-weight:bold">— Pendiente</td><td>—</td><td>Sin registro</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /siu-main -->
+  </div><!-- /siu-body -->
+
+</div><!-- /siu-wrap -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- MODAL: CALIFICACIONES PARCIALES FEB-JUN 2026       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalParciales" onclick="closeModalIfOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-header-title">Calificaciones Parciales &mdash; Período: FEBRERO - JUNIO DE 2026 &nbsp;&bull;&nbsp; Semestre: 7</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="modal-header-right">Fecha de Matrícula: 2026-02-06</div>
+        <button class="modal-close" onclick="closeParciales()">&#x2715;</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div style="overflow-x:auto">
+        <table class="cortes-table">
+          <thead>
+            <tr>
+              <th class="left" rowspan="2" style="min-width:120px">Código</th>
+              <th class="left" rowspan="2" style="min-width:230px">Asignatura</th>
+              <th colspan="2" class="group-header">Corte 1 <span class="corte-pct">30%</span></th>
+              <th colspan="2" class="group-header">Corte 2 <span class="corte-pct">30%</span></th>
+              <th colspan="2" class="group-header">Corte 3 <span class="corte-pct">40%</span></th>
+              <th rowspan="2">Calificación<br>final</th>
+              <th rowspan="2">Observaciones</th>
+              <th rowspan="2">INAS.</th>
+            </tr>
+            <tr>
+              <th>Inasistencia</th><th>Calificación</th>
+              <th>Inasistencia</th><th>Calificación</th>
+              <th>Inasistencia</th><th>Calificación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">APL-WEB-00837</td>
+              <td class="left">APLICACIONES WEB</td>
+              <td></td><td>4</td>
+              <td></td><td>3.9</td>
+              <td></td><td>4</td>
+              <td>4</td><td>4</td><td></td>
+            </tr>
+            <tr>
+              <td class="left">CAL-SOF-00307</td>
+              <td class="left">CALIDAD DE SOFTWARE</td>
+              <td>3</td><td>4</td>
+              <td></td><td>4.2</td>
+              <td></td><td>3.6</td>
+              <td>3.9</td><td></td><td>3</td>
+            </tr>
+            <tr>
+              <td class="left">ELE-PRO-II-00305</td>
+              <td class="left">ELECTIVA DE PROFUNDIZACIÓN II (IS)</td>
+              <td></td><td>4.2</td>
+              <td>4</td><td>3.5</td>
+              <td></td><td>3.2</td>
+              <td>3.6</td><td></td><td>4</td>
+            </tr>
+            <tr>
+              <td class="left">ELE-GEN-II-00310</td>
+              <td class="left">ELECTIVA GENERAL II</td>
+              <td>1</td><td>4.1</td>
+              <td>4</td><td>4.4</td>
+              <td>2</td><td>4.1</td>
+              <td>4.2</td><td></td><td>7</td>
+            </tr>
+            <tr>
+              <td class="left">EST-DAT-00246</td>
+              <td class="left">Estructura de Datos</td>
+              <td>6</td><td>3.1</td>
+              <td></td><td>2.9</td>
+              <td></td><td>3.4</td>
+              <td>3.2</td><td></td><td>6</td>
+            </tr>
+            <tr>
+              <td class="left">ING-II-00749</td>
+              <td class="left">INGLÉS II</td>
+              <td></td><td>4.4</td>
+              <td>6</td><td>3.8</td>
+              <td></td><td>3.2</td>
+              <td>3.7</td><td></td><td>6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:14px;text-align:right">
+        <button onclick="closeParciales()" style="background:#0d2b6b;color:#fff;border:none;padding:7px 20px;border-radius:3px;font-size:12px;cursor:pointer;font-weight:bold">&#x2715; Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchSectionTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-pill').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchMainTab(tab) {
+  document.querySelectorAll('.siu-tab').forEach(el => el.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function openParciales() {
+  document.getElementById('modalParciales').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeParciales() {
+  document.getElementById('modalParciales').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalIfOverlay(e) {
+  if (e.target === document.getElementById('modalParciales')) closeParciales();
+}
+</script>
+</body>
+</html>
